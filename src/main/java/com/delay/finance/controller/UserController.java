@@ -2,7 +2,6 @@ package com.delay.finance.controller;
 
 
 import com.delay.finance.entity.User;
-import com.delay.finance.service.EssayService;
 import com.delay.finance.service.UserService;
 import com.delay.finance.utils.ExecuteResult;
 import org.springframework.beans.BeanUtils;
@@ -23,8 +22,7 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private EssayService essayService;
+
     /**
      * 获取个人信息
      * @return
@@ -68,7 +66,6 @@ public class UserController extends BaseController {
     @ResponseBody
     public ExecuteResult delete(@RequestBody List<Integer> userIds){
         userIds.stream().forEach(o->{
-            essayService.deleteByUserId(o);
             userService.delete(o);
         });
         return ExecuteResult.ok();

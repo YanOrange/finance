@@ -1,14 +1,11 @@
 package com.delay.finance.controller;
 
-import com.delay.finance.entity.Essay;
 import com.delay.finance.entity.User;
-import com.delay.finance.service.EssayService;
 import com.delay.finance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 页面控制器
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("page")
 public class PageController extends BaseController{
 
-    @Autowired
-    private EssayService essayService;
     @Autowired
     private UserService userService;
 
@@ -215,14 +210,6 @@ public class PageController extends BaseController{
     public String clientLogin(){
 
         return "client/login";
-    }
-
-    //查看新闻（根据ID）
-    @RequestMapping("findById")
-    public String findById(@RequestParam("essayId") Integer essayId, Model model){
-        Essay essay = essayService.findById(essayId);
-        model.addAttribute("essay",essay);
-        return "client/essay";
     }
 
 

@@ -33,5 +33,9 @@ public class User {
     private String address;//地址
     private Integer status;//0普通用户 3财务人员
 
+    private Long wages;//固定工资
+    private Long achieveWages;//绩效工资   绩效工资点数 = 部门绩效（30%）+个人绩效（70%）
+    private Double achievements;//个人绩效
+
 
 }
