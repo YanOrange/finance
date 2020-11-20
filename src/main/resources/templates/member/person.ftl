@@ -40,9 +40,9 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">学校</label>
+                    <label class="layui-form-label">银行卡号</label>
                     <div class="layui-input-block">
-                        <div class="layui-form-mid">${user.school!''}</div>
+                        <div class="layui-form-mid">${user.accId!''}</div>
                     </div>
                 </div>
             </div>
@@ -92,6 +92,18 @@
                 <label class="layui-form-label">身份证件</label>
                 <div class="layui-input-block">
                     <div class="layui-form-mid">${user.idCard!''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">固定工资</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${user.wages!''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">绩效工资</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${user.achieveWages!''}</div>
                 </div>
             </div>
             <div class="layui-form-item">

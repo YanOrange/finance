@@ -32,7 +32,7 @@ public class UserController extends BaseController {
 
         User author = userService.findById(authorId);
         request.setAttribute("author",author);
-        return "author/person-edit";
+        return "member/person-edit";
     }
     /**
      * 修改个人信息

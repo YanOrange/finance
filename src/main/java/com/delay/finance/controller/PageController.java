@@ -53,7 +53,16 @@ public class PageController extends BaseController{
     public String person(){
         User user = getUser();
 
-        return "author/person";
+        return "member/person";
+    }
+
+    /**
+     * 个人工资条
+     * @return
+     */
+    @RequestMapping("personWages")
+    public String wages(){
+        return "wages/wages-person";
     }
     /**
      * 客户端个人界面
@@ -80,7 +89,7 @@ public class PageController extends BaseController{
      */
     @RequestMapping("editor")
     public String editor(){
-        return "author/editor";
+        return "member/editor";
     }
     /**
      * 新闻列表
@@ -88,7 +97,7 @@ public class PageController extends BaseController{
      */
     @RequestMapping("essayList")
     public String essayList(){
-        return "author/essay-list";
+        return "member/essay-list";
     }
     /**
      * 待审核稿件
@@ -142,7 +151,7 @@ public class PageController extends BaseController{
     @RequestMapping("add")
     public String add(Integer status, Model model){
         model.addAttribute("status",status);
-        return "author/person-add";
+        return "member/person-add";
     }
 
     /**

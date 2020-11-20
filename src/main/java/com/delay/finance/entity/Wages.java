@@ -24,7 +24,21 @@ public class Wages {
     @ManyToOne
     private User user;
 
-    private Long price;//金额
+    private Long wages;//固定工资
+
+    private Long achieveWages;//绩效工资
+
+    private Double achievements;//个人绩效
+
+    private Double departmentAchievements;//部门绩效
+
+    private Long bonus;//奖金
+
+    private Long tax;//税
+
+    private String remark;//区别几月工资
+
+    private Long totalWages;//实发工资
 
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT-8")
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
