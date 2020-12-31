@@ -64,6 +64,16 @@ public class PageController extends BaseController{
     public String wages(){
         return "wages/wages-person";
     }
+
+    /**
+     * 本人收支记录
+     * @return
+     */
+    @RequestMapping("projectApply")
+    public String projectApply(){
+        return "project/project-apply";
+    }
+
     /**
      * 客户端个人界面
      * @return

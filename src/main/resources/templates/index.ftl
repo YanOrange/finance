@@ -104,7 +104,7 @@
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('本人收支记录','/page/essayList')">
+                            <a onclick="xadmin.add_tab('本人收支记录','/page/projectApply')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>本人收支记录</cite></a>
                         </li>
