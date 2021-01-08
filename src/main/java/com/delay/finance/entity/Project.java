@@ -26,6 +26,10 @@ public class Project {
 
     private String isRecharge;//recharge 收入  expend 支出
 
+    @JoinColumn(name="type_id")
+    @ManyToOne
+    private Type type;
+
     private Long price;//金额
 
     private Integer status;//审核状态 0审核中 1通过 2拒绝

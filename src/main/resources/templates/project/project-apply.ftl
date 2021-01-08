@@ -192,7 +192,7 @@
     }
     function refuse(id) {
         //prompt层
-        layer.confirm('确认通过嘛？', {
+        layer.confirm('确认取消嘛？', {
             btn: ['确认','取消'] //按钮
         },  function () {
             $.ajax({

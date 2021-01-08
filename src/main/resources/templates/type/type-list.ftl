@@ -64,7 +64,7 @@
                 </div>
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/addType',800,600)" href="javascript:;">
-                        <i class="layui-icon iconfont">&#xe6b9;</i>新增类型
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增业务项目类别
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除</button></div>

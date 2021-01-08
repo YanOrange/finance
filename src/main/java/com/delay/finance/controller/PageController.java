@@ -1,6 +1,8 @@
 package com.delay.finance.controller;
 
+import com.delay.finance.entity.Company;
 import com.delay.finance.entity.User;
+import com.delay.finance.repository.CompanyRepository;
 import com.delay.finance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class PageController extends BaseController{
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     /**
      * 登录页面
@@ -74,41 +78,46 @@ public class PageController extends BaseController{
         return "project/project-apply";
     }
 
+
     /**
-     * 客户端个人界面
+     * 账户余额，公司信息
+     * @param model
      * @return
      */
-    @RequestMapping("clientPerson")
-    public String clientPerson(){
-
-        return "client/person";
+    @RequestMapping("companyInfo")
+    public String companyInfo(Model model){
+        Company company = companyRepository.findAll().get(0);
+        model.addAttribute("company",company);
+        return "company/info";
     }
 
     /**
-     * 我的收藏
+     * 业务项目类别管理
      * @return
      */
-    @RequestMapping("myFav")
-    public String myFav(){
+    @RequestMapping("typeList")
+    public String typeList(){
+        return "type/type-list";
+    }
 
-        return "client/fav";
-    }
     /**
-     * 修改个人信息
+     * 报表管理
      * @return
      */
-    @RequestMapping("editor")
-    public String editor(){
-        return "member/editor";
+    @RequestMapping("reportList")
+    public String reportList(){
+        return "project/report-list";
     }
+
     /**
-     * 新闻列表
+     * 业务收支审批
      * @return
      */
     @RequestMapping("essayList")
     public String essayList(){
         return "member/essay-list";
     }
+
     /**
      * 待审核稿件
      * @return
@@ -116,33 +125,6 @@ public class PageController extends BaseController{
     @RequestMapping("masterEssayList")
     public String masterEssayList(){
         return "master/master-essay-list";
-    }
-
-    /**
-     * 审核后的稿件
-     * @return
-     */
-    @RequestMapping("masterEssayPassList")
-    public String masterEssayPassList(){
-        return "master/master-essay-pass-list";
-    }
-
-    /**
-     * 弃用稿件列表
-     * @return
-     */
-    @RequestMapping("editorEssayList")
-    public String editorEssayList(){
-        return "editor/editor-essay-list";
-    }
-
-    /**
-     * 获取全部专家
-     * @return
-     */
-    @RequestMapping("toGetMaster")
-    public String toGetMaster(){
-        return "editor/master-list";
     }
 
     /**
@@ -164,72 +146,8 @@ public class PageController extends BaseController{
         return "member/person-add";
     }
 
-    /**
-     * 新增高校
-     * @return
-     */
-    @RequestMapping("addSchool")
-    public String addSchool(){
-        return "school/school-add";
-    }
 
-    /**
-     * 高校列表
-     * @return
-     */
-    @RequestMapping("schoolList")
-    public String schoolList(){
-        return "school/school-list";
-    }
-    /**
-     * 新增类型
-     * @return
-     */
-    @RequestMapping("addType")
-    public String addType(){
-        return "type/type-add";
-    }
 
-    /**
-     * 类型列表
-     * @return
-     */
-    @RequestMapping("typeList")
-    public String typeList(){
-        return "type/type-list";
-    }
-
-    /**
-     * 退出登录
-     * @return
-     */
-    @RequestMapping("exit")
-    public String exit(){
-
-        getSession().removeAttribute("user");
-
-        return "login";
-    }
-
-    /**
-     * 客户端首页
-     * @return
-     */
-    @RequestMapping("home")
-    public String home(){
-
-        return "client/home";
-    }
-
-    /**
-     * 客户端登录页面
-     * @return
-     */
-    @RequestMapping("clientLogin")
-    public String clientLogin(){
-
-        return "client/login";
-    }
 
 
 }

@@ -28,6 +28,10 @@ public class IORecord {
     @ManyToOne
     private User user;//负责人
 
+    @JoinColumn(name="company_id")
+    @ManyToOne
+    private Company company;//公司
+
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT-8")
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;//创建时间

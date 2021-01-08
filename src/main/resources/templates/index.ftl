@@ -119,7 +119,7 @@
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('公司账户','/page/schoolList')">
+                            <a onclick="xadmin.add_tab('公司账户','/page/companyInfo')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>公司账户</cite></a>
                         </li>
@@ -129,7 +129,7 @@
                                 <cite>业务项目类别管理</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('报表管理','/page/typeList')">
+                            <a onclick="xadmin.add_tab('报表管理','/page/reportList')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>报表管理</cite></a>
                         </li>
