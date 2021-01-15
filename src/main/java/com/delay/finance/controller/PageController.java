@@ -110,6 +110,15 @@ public class PageController extends BaseController{
     }
 
     /**
+     * 工资管理
+     * @return
+     */
+    @RequestMapping("wagesList")
+    public String wagesList(){
+        return "project/wages-list";
+    }
+
+    /**
      * 业务收支审批
      * @return
      */

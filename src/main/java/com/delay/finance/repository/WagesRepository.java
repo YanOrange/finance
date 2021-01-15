@@ -16,4 +16,6 @@ import java.util.List;
 @Component
 public interface WagesRepository extends JpaRepository<Wages,Integer> {
     List<Wages> findByUserId(Integer userId);
+
+    List<Wages> findByRemark(String remark);
 }

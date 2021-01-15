@@ -63,10 +63,10 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="downProject()">
-                        <i class="layui-icon"></i>导出项目收支报表</button>
-                    <button class="layui-btn layui-btn-danger" onclick="downIO()">
-                        <i class="layui-icon"></i>导出工资条报表</button></div>
+                    <button class="layui-btn layui-btn-danger" onclick="" href="javascript:;">
+                        <i class="layui-icon iconfont">&#xe6b9;</i>一键代发工资
+                    </button>
+                </div>
                 <div class="layui-card-body ">
                     <table id="LAY_table_user" class="layui-table">
 
@@ -78,13 +78,95 @@
     </div>
 </div>
 </body>
+
 <script>
-    function downProject(){
-        window.location.href = "/project/downProject";
+    layui.use('laydate',
+        function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+
+        });
+</script>
+<script>
+    layui.use('table',function () {
+        var table = layui.table;
+
+    });
+</script>
+<script>
+    /*操作数据*/
+
+</script>
+<script th:inline="none">
+    /*数据查询*/
+
+    $(function () {
+        getAllWages();
+    })
+
+    /*获取全部文章*/
+    function getAllWages() {
+        layui.use('table',
+            function () {
+                var table = layui.table;
+                table.render({
+                    id: "checkboxTable",
+                    url: '/wages/findWagesByRemark',
+                    elem: '#LAY_table_user',
+                    page:true,
+                    cols: [[
+                        {checkbox: true},
+                        {field: 'id', title: 'ID', width: 80},
+                        {field: 'remark', title: '工资名称', sort: true, width: 120},
+                        {field: 'wages',width:80, title: '固定工资', sort: true,templet:'<div>{{d.wages/100}}</div>'},
+                        {field: 'achieveWages',width:80, title: '绩效工资', sort: true,templet:'<div>{{d.achieveWages/100}}</div>'},
+                        {field: 'departmentAchievements', title: '部门绩效', sort: true, width: 150},
+                        {field: 'achievements', title: '个人绩效', sort: true, width: 150},
+                        {field: 'bonus', title: '奖金', sort: true, width: 150,templet:'<div>{{d.bonus/100}}</div>'},
+                        {field: 'tax', title: '杂税', sort: true, width: 150,templet:'<div>{{d.tax/100}}</div>'},
+                        {field: 'totalWages',width:80, title: '实发工资', sort: true,templet:'<div>{{d.totalWages/100}}</div>'},
+                        {field: 'createTime', title: '创建时间', sort: true, width: 120},
+                        {toolbar:'#barTeacher',title:'操作',width: 120}
+
+                    ]]
+                })
+
+            });
     }
 
-    function downIO(){
-        window.location.href = "/project/downIO";
+    function sendWages(){
+        $.ajax({
+            url:'/wages/sendWages',
+            dataType:'json',
+            success:function(res){
+
+            }
+
+        })
     }
+
+    /**
+     * 判断字段是否为空
+     * @param o
+     * @returns {*}
+     */
+    function isNullFormat(o) {
+        if (o) {
+            return o;
+        }else{
+            return '暂无';
+        }
+    }
+
 </script>
+
 </html>

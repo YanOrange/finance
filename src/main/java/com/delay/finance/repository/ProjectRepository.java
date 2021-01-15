@@ -16,4 +16,6 @@ import java.util.List;
 @Component
 public interface ProjectRepository extends JpaRepository<Project,Integer> {
     List<Project> findByUserId(Integer userId);
+
+    List<Project> findAllByStatus(int i);
 }

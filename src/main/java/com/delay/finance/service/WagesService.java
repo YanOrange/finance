@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface WagesService {
     List<Wages> findByUserId(Integer userId);
+
+    List<Wages> findWagesByRemark(String valueOf);
 }

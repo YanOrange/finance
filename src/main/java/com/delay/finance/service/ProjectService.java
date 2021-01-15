@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface ProjectService {
     List<Project> findByUserId(Integer userId);
+
+    List<Project> getAll();
+
+    List<Project> getAllByStatus(int i);
 }

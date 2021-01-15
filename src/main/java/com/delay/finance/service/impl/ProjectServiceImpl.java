@@ -22,4 +22,14 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> findByUserId(Integer userId) {
         return projectRepository.findByUserId(userId);
     }
+
+    @Override
+    public List<Project> getAll() {
+        return projectRepository.findAll();
+    }
+
+    @Override
+    public List<Project> getAllByStatus(int i) {
+        return projectRepository.findAllByStatus(i);
+    }
 }

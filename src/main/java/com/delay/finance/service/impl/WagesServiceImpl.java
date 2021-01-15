@@ -22,4 +22,9 @@ public class WagesServiceImpl implements WagesService {
     public List<Wages> findByUserId(Integer userId) {
         return wagesRepository.findByUserId(userId);
     }
+
+    @Override
+    public List<Wages> findWagesByRemark(String remark) {
+        return wagesRepository.findByRemark(remark);
+    }
 }
