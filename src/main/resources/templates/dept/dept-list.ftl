@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="x-admin-sm">
+<html class="x-admin-sm" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -63,6 +63,9 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/addDept',800,600)" href="javascript:;">
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增部门
+                    </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除</button></div>
                 <div class="layui-card-body ">
@@ -96,36 +99,36 @@
 </script>
 <script>
     layui.use('table',function () {
-        var table = layui.table;
+                var table = layui.table;
 
-    });
+            });
 </script>
 <script>
     /*操作数据*/
-
-    /*用户-弃用*/
+    /*类型-删除*/
     function member_del(obj, id) {
         var arr = [];
         arr.push(id);
-        layer.confirm('确认要弃用吗？', function (index) {
+        layer.confirm('确认要永久删除吗？', function (index) {
             //发异步删除数据
             $.ajax({
-                url:'/essay/disuse',
-                data:JSON.stringify(arr),
-                type:'post',
-                dataType:'json',
+                url: '/dept/delete',
+                data: JSON.stringify(arr),
+                type: 'post',
+                dataType: 'json',
                 contentType: "application/json",
-                success:function (res) {
-                    if (res.success){
+                success: function (res) {
+                    if (res.success) {
                         $(obj).parents("tr").remove();
-                        layer.msg('已弃用!',{icon:1,time:1000});
-                    } else{
-                        layer.msg(res.msg,{icon:2,time:1000});
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(res.msg, {icon: 2, time: 1000});
                     }
                 }
             })
         });
     }
+
     /*用户-删除全部*/
     function delAll(argument) {
         var checkStatus = layui.table.checkStatus('checkboxTable').data;
@@ -139,7 +142,7 @@
                 function () {
                     //捉到所有被选中的，发异步进行删除
                     $.ajax({
-                        url:'/essay/delete',
+                        url:'/type/delete',
                         data:JSON.stringify(ids),
                         dataType:'json',
                         type:'post',
@@ -163,58 +166,6 @@
                 });
     }
 
-    //通过
-    function pass(id){
-        layer.confirm('确认通过嘛？', {
-            btn: ['确认','取消'] //按钮
-        }, function(){
-            $.ajax({
-                url:'/essay/setState',
-                data:{
-                    essayId:id,
-                    state:1
-                },
-                dataType:'json',
-                success:function (res) {
-                    if (res.success){
-                        layer.msg('审核通过，稿件已发布', {icon: 1});
-                        xadmin.father_reload();
-                    } else {
-                        layer.msg(res.msg, {icon: 2});
-                    }
-
-                }
-            })
-
-        }, function(){
-
-        });
-    }
-    function disuse(id) {
-        //prompt层
-        layer.prompt({title: '弃用原因', formType: 2}, function (text, index) {
-            $.ajax({
-                url:'/essay/disuse',
-                data:{
-                    essayId:id,
-                    remark:text
-                },
-                type:'post',
-                dataType:'json',
-                success:function(res){
-                    if (res.success){
-                        layer.close(index);
-                        layer.msg('已弃用<br>原因：' + text);
-                    } else{
-                        layer.close(index);
-                        layer.msglayer.msg(res.msg, {icon: 2});
-                    }
-                }
-            })
-
-        });
-    }
-
 </script>
 <script th:inline="none">
     /*数据查询*/
@@ -223,29 +174,23 @@
         getAllEssay();
     })
 
-    /*获取全部文章*/
+    /*获取全部部门*/
     function getAllEssay() {
         layui.use('table',
                 function () {
                     var table = layui.table;
                     table.render({
                         id: "checkboxTable",
-                        url: '/essay/getEssayByState?state=1',
+                        url: '/dept/getAll',
                         elem: '#LAY_table_user',
                         page:true,
                         cols: [[
                             {checkbox: true},
                             {field: 'id', title: 'ID', width: 80},
-                            {field: 'title', title: '标题', sort: true, width: 120},
-                            {field: 'type',width:80, title: '类型', sort: true,templet:'<div>{{d.type.name}}</div>'},
-                            {field: 'school',width:80, title: '所属高校', sort: true,templet:'<div>{{d.school.name}}</div>'},
-                            {field: 'user',width:80, title: '作者', sort: true,templet:'<div>{{d.user.name}}</div>'},
+                            {field: 'name', title: '部门名', sort: true, width: 120},
+                            {field: 'achievements', title: '工资系数', sort: true, width: 120},
                             {field: 'createTime', title: '创建时间', sort: true, width: 150},
-                            {field: 'updateTime', title: '最后一次更新时间', sort: true, width: 150},
-                            {field: 'publishTime', title: '发布时间', sort: true, width: 150},
-                            {field: 'state', title: '状态', sort: true, width: 120,templet:'<div>{{d.state==0?"审核中":(d.state==1?"发布":(d.state==2?"打回":(d.state==3?"弃用":"未知")))}}</div>'},
                             {toolbar:'#barTeacher',title:'操作',width: 120}
-
                         ]]
                     })
 
@@ -269,8 +214,11 @@
 
 </script>
 <script type="text/html" id="barTeacher">
-    <a title="查看"  onclick="xadmin.open('查看科研成果文件','/essay/checkEssay?essayId={{d.id}}',800,600);" href="javascript:;">
-        <i class="layui-icon iconfont">&#xe6ac;</i>
+    <a title="调整部门工资系数"  onclick="xadmin.open('调整部门工资系数','/dept/toEditDept?deptId={{d.id}}',800,600)" href="javascript:;">
+        <i class="layui-icon">&#xe642;</i>
+    </a>
+    <a title="移除" onclick="member_del(this,{{d.id}})" href="javascript:;">
+        <i class="layui-icon">&#xe640;</i>
     </a>
 </script>
 

@@ -62,8 +62,7 @@
                             console.log(s)
                             $.ajax({
                                 url: '/type/editInfo',
-                                data: s,
-                                contentType: "application/json;charset=UTF-8",
+                                data: data.field,
                                 type: 'post',
                                 dataType: 'json',
                                 success: function (res) {

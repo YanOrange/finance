@@ -145,8 +145,6 @@
                         url:'/type/delete',
                         data:JSON.stringify(ids),
                         dataType:'json',
-                        type:'post',
-                        contentType:'application/json',
                         success:function (res) {
                             if (res.success){
                                 layer.msg('删除成功', {

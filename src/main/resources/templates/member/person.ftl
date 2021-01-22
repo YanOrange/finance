@@ -97,13 +97,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">固定工资</label>
                 <div class="layui-input-block">
-                    <div class="layui-form-mid">${user.wages!''}</div>
+                    <div class="layui-form-mid">${user.wages/100!''}元</div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">绩效工资</label>
                 <div class="layui-input-block">
-                    <div class="layui-form-mid">${user.achieveWages!''}</div>
+                    <div class="layui-form-mid">${user.achieveWages/100!''}元</div>
                 </div>
             </div>
             <div class="layui-form-item">

@@ -44,4 +44,6 @@ public class Wages {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;//创建时间
 
+    private Integer state;//0未发放 1已发放
+
 }

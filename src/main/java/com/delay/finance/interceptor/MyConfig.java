@@ -45,12 +45,7 @@ public class MyConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/page/login")
                 .excludePathPatterns("/page/add")
                 .excludePathPatterns("/user/add")
-                .excludePathPatterns("/type/**")
-                .excludePathPatterns("/essay/**")
-                .excludePathPatterns("/page/home")
-                .excludePathPatterns("/page/clientPerson")
-                .excludePathPatterns("/page/clientLogin")
-                .excludePathPatterns("/page/myFav");
+                .excludePathPatterns("/type/**");
 
     }
 }

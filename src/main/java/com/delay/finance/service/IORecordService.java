@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface IORecordService {
     List<IORecord> findAll();
+
+    void saveOrUpdate(IORecord ioRecord);
 }

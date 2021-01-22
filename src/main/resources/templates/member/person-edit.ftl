@@ -35,11 +35,11 @@
             </div>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>学校
+                    <span class="x-red">*</span>职位
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="school" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.school!''}">
+                    <input type="text" id="username" name="post" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="${author.post!''}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -108,6 +108,16 @@
                            autocomplete="off" class="layui-input" value="${author.idCard!''}">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    <span class="x-red">*</span>银行卡号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="accId" required="" lay-verify="identity"
+                           autocomplete="off" class="layui-input" value="${author.accId!''}">
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>

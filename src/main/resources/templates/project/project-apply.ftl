@@ -63,6 +63,8 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-normal" onclick="xadmin.open('新增','/page/projectAdd',800,600)">
+                        <i class="layui-icon"></i>新增</button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除</button></div>
                 <div class="layui-card-body ">
@@ -244,7 +246,7 @@
                             {field: 'isRecharge', title: '收支类型', sort: true, width: 150,templet:'<div>{{d.isRecharge=="recharge"?"收入":"支出"}}</div>'},
                             {field: 'price', title: '金额', sort: true, width: 150,templet:'<div>{{d.price/100}}</div>'},
                             {field: 'status', title: '状态', sort: true, width: 120,templet:'<div>{{d.status==0?"审核中":(d.status==1?"通过":"拒绝")}}</div>'},
-                            {field: 'admin', title: '审核人', sort: true, width: 120,templet:'<div>{{d.admin.name}}</div>'},
+                            {field: 'admin', title: '审核人', sort: true, width: 120,templet:'<div>{{(d.admin==null)?"暂无":d.admin.name}}</div>'},
                             {toolbar:'#barTeacher',title:'操作',width: 120}
 
                         ]]
@@ -270,15 +272,15 @@
 
 </script>
 <script type="text/html" id="barTeacher">
-    {{
-        if(d.status==0){
-    }}
+<#--    {{-->
+<#--        if(d.status==0){-->
+<#--    }}-->
     <a title="取消申请" onclick="refuse({{d.id}})" href="javascript:;">
-        <i class="layui-icon iconfont">&#xe6ad;</i>
+        <i class="layui-icon iconfont">&#xe6b7;</i>
     </a>
-    {{
-        }
-    }}
+<#--    {{-->
+<#--        }-->
+<#--    }}-->
 </script>
 
 </html>

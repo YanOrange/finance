@@ -12,4 +12,6 @@ public interface WagesService {
     List<Wages> findByUserId(Integer userId);
 
     List<Wages> findWagesByRemark(String valueOf);
+
+    void saveOrUpdate(Wages wages);
 }

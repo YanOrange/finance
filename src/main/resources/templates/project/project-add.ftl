@@ -25,13 +25,50 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>项目类别名称
+                    <span class="x-red">*</span>项目（业务）名
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="username" name="name" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" value="">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>描述
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="description" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="x-red">*</span>收支类型</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="isRecharge" value="recharge" title="收入" checked>
+                    <input type="radio" name="isRecharge" value="expend" title="支出">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>业务种类
+                </label>
+                <div class="layui-input-inline">
+                    <select id="type" name="type.id" required=""
+                            autocomplete="off" class="layui-input" lay-verify="required" lay-filter="change">
+                        <option value="">请选择业务种类</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>金额
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="dPrice" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
@@ -49,6 +86,10 @@
                 var form = layui.form,
                         layer = layui.layer;
 
+                $(function(){
+                    findAllType();
+                })
+
                 //自定义验证规则
                 form.verify({});
 
@@ -60,13 +101,12 @@
                             var s = JSON.stringify(data.field);
                             console.log(s)
                             $.ajax({
-                                url: '/type/add',
+                                url: '/project/add',
                                 data: data.field,
-                                type: 'post',
                                 dataType: 'json',
                                 success: function (res) {
                                     if (res.success) {
-                                        layer.alert('类型新增成功', {
+                                        layer.alert('业务项目新增成功', {
                                                     icon: 6
                                                 },
                                                 function () {
@@ -86,6 +126,23 @@
 
                             return false;
                         });
+
+                function findAllType(){
+                    $.ajax({
+                        url:'/type/getAll',
+                        dataType:'json',
+                        success: function (res) {
+                            var html = '<option value="" >请选择业务种类</option>';
+                            if (res.success) {
+                                $.each(res.data, function (i, val) {
+                                    html += '<option value="' + val.id + '">' + val.name + '</option>';
+                                })
+                            }
+                            $('#type').html(html)
+                            form.render('select');
+                        }
+                    })
+                }
 
             });</script>
 <script>

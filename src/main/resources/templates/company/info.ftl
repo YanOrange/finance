@@ -52,7 +52,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">账户余额</label>
                     <div class="layui-input-block">
-                        <div class="layui-form-mid" id="cost">${(company.cost!'')/100}</div>
+                        <div class="layui-form-mid" id="cost">${(company.cost/100!'')}</div>
                     </div>
                 </div>
             </div>

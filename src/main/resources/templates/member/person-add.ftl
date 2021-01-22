@@ -52,10 +52,10 @@
             </div>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>学校
+                    <span class="x-red">*</span>职位
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" name="school" required="" lay-verify="required"
+                    <input type="text" name="post" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" value="">
                 </div>
             </div>
@@ -121,6 +121,53 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    <span class="x-red">*</span>银行卡号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="accId" required="" lay-verify="identity"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    <span class="x-red">*</span>固定工资
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="wages" required="" lay-verify="identity"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    <span class="x-red">*</span>绩效工资
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="achieveWages" required="" lay-verify="identity"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                    <span class="x-red">*</span>个人绩效
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="achievements" required="" lay-verify="identity"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>所属部门
+                </label>
+                <div class="layui-input-inline">
+                    <select id="department" name="department.id" required=""
+                            autocomplete="off" class="layui-input" lay-verify="required" lay-filter="change">
+                        <option value="">请选择所属部门</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
                 <button class="layui-btn" lay-filter="edit" lay-submit="">
@@ -133,6 +180,11 @@
 <script>
     layui.use(['form', 'layer'],
             function () {
+
+        $(function(){
+            findAllDept();
+        })
+
                 // $ = layui.jquery;
                 var form = layui.form,
                         layer = layui.layer;
@@ -145,7 +197,7 @@
                         function (data) {
                             console.log(data);
                             //发异步，把数据提交给后端
-                            data.field.status = ${status};//专家
+                            data.field.status = ${status};
                             var s = JSON.stringify(data.field);
                             console.log(s)
                             $.ajax({
@@ -179,6 +231,23 @@
 
                             return false;
                         });
+
+                function findAllDept(){
+                    $.ajax({
+                        url:'/dept/getAll',
+                        dataType:'json',
+                        success: function (res) {
+                            var html = '<option value="" >请选择所属部门</option>';
+                            if (res.success) {
+                                $.each(res.data, function (i, val) {
+                                    html += '<option value="' + val.id + '">' + val.name + '</option>';
+                                })
+                            }
+                            $('#department').html(html)
+                            form.render('select');
+                        }
+                    })
+                }
 
             });</script>
 <script>

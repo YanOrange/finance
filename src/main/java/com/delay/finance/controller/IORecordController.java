@@ -42,6 +42,7 @@ public class IORecordController {
         });
         Company company = companyRepository.findAll().get(0);
         company.setCost(nowCost[0]);
+        companyRepository.save(company);
         return ExecuteResult.ok(company);
     }
 

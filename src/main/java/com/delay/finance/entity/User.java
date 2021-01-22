@@ -37,5 +37,9 @@ public class User {
     private Long achieveWages;//绩效工资   绩效工资点数 = 部门绩效（30%）+个人绩效（70%）
     private Double achievements;//个人绩效
 
+    @ManyToOne
+    @JoinColumn(name="department_id")
+    private Department department;
+
 
 }

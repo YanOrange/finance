@@ -45,6 +45,7 @@ public class Project {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;//创建时间
 
-
+    @Transient
+    private Double dPrice;
 
 }

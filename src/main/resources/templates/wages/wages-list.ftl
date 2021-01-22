@@ -63,7 +63,10 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="" href="javascript:;">
+                    <button class="layui-btn layui-btn-danger" onclick="makeWages()" href="javascript:;">
+                        <i class="layui-icon iconfont">&#xe6b9;</i>生成本月工资条
+                    </button>
+                    <button class="layui-btn layui-btn-danger" onclick="sendWages()" href="javascript:;">
                         <i class="layui-icon iconfont">&#xe6b9;</i>一键代发工资
                     </button>
                 </div>
@@ -126,6 +129,7 @@
                     cols: [[
                         {checkbox: true},
                         {field: 'id', title: 'ID', width: 80},
+                        {field: 'user', title: '员工名', sort: true, width: 120,templet:'<div>{{d.user.name}}</div>'},
                         {field: 'remark', title: '工资名称', sort: true, width: 120},
                         {field: 'wages',width:80, title: '固定工资', sort: true,templet:'<div>{{d.wages/100}}</div>'},
                         {field: 'achieveWages',width:80, title: '绩效工资', sort: true,templet:'<div>{{d.achieveWages/100}}</div>'},
@@ -143,12 +147,37 @@
             });
     }
 
+    function makeWages(){
+        $.ajax({
+            url:'/wages/makeWages',
+            dataType:'json',
+            success:function(res){
+                if(res.success){
+                    layer.msg('工资条生成完毕！', {
+                    }, function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg(res.msg, {icon: 2});
+                }
+            }
+
+        })
+    }
+
     function sendWages(){
         $.ajax({
             url:'/wages/sendWages',
             dataType:'json',
             success:function(res){
-
+                if(res.success){
+                    layer.msg('工资发放完毕！', {
+                    }, function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg(res.msg, {icon: 2});
+                }
             }
 
         })

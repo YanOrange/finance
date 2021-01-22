@@ -63,8 +63,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="delAll()">
-                        <i class="layui-icon"></i>批量删除</button></div>
+                    </div>
                 <div class="layui-card-body ">
                     <table id="LAY_table_user" class="layui-table">
 
@@ -169,15 +168,15 @@
             btn: ['确认','取消'] //按钮
         }, function(){
             $.ajax({
-                url:'/essay/setState',
+                url:'/project/setStatus',
                 data:{
-                    essayId:id,
-                    state:1
+                    projectId:id,
+                    status:1
                 },
                 dataType:'json',
                 success:function (res) {
                     if (res.success){
-                        layer.msg('审核通过，科研成果已发布', {icon: 1});
+                        layer.msg('审核通过', {icon: 1});
                         xadmin.father_reload();
                     } else {
                         layer.msg(res.msg, {icon: 2});
@@ -192,22 +191,22 @@
     }
     function refuse(id) {
         //prompt层
-        layer.prompt({title: '打回意见', formType: 2}, function (text, index) {
+        layer.confirm('确认打回嘛？', {
+            btn: ['确认','取消'] //按钮
+        }, function () {
             $.ajax({
-                url:'/essay/refuse',
+                url:'/project/setStatus',
                 data:{
-                    essayId:id,
-                    remark:text
+                    projectId:id,
+                    status:2
                 },
-                type:'post',
                 dataType:'json',
                 success:function(res){
                     if (res.success){
-                        layer.close(index);
-                        layer.msg('已打回<br>提交意见：' + text);
-                    } else{
-                        layer.close(index);
-                        layer.msglayer.msg(res.msg, {icon: 2});
+                        layer.msg('审核拒绝', {icon: 1});
+                        xadmin.father_reload();
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
                     }
                 }
             })
@@ -223,27 +222,26 @@
         getAllEssay();
     })
 
-    /*获取全部文章*/
+    /*获取全部项目*/
     function getAllEssay() {
         layui.use('table',
                 function () {
                     var table = layui.table;
                     table.render({
                         id: "checkboxTable",
-                        url: '/essay/getEssayByState?state=0',
+                        url: '/project/getProjectByStatus?status=0',
                         elem: '#LAY_table_user',
                         page:true,
                         cols: [[
                             {checkbox: true},
-                            {field: 'id', title: 'ID', width: 80},
-                            {field: 'title', title: '标题', sort: true, width: 120},
-                            {field: 'type',width:80, title: '类型', sort: true,templet:'<div>{{d.type.name}}</div>'},
-                            {field: 'school',width:80, title: '所属高校', sort: true,templet:'<div>{{d.school.name}}</div>'},
-                            {field: 'user',width:80, title: '作者', sort: true,templet:'<div>{{d.user.name}}</div>'},
-                            {field: 'createTime', title: '创建时间', sort: true, width: 150},
-                            {field: 'updateTime', title: '最后一次更新时间', sort: true, width: 150},
-                            {field: 'publishTime', title: '发布时间', sort: true, width: 150},
-                            {field: 'state', title: '状态', sort: true, width: 120,templet:'<div>{{d.state==0?"审核中":(d.state==1?"发布":(d.state==2?"打回":(d.state==3?"弃用":"未知")))}}</div>'},
+                            {field: 'id', title: 'ID',width: 80},
+                            {field: 'name', title: '项目/业务名', sort: true, width: 120},
+                            {field: 'description',width:80, title: '描述', sort: true},
+                            {field: 'user',width:80, title: '申请人', sort: true,templet:'<div>{{d.user.name}}</div>'},
+                            {field: 'createTime', title: '申请时间', sort: true, width: 150},
+                            {field: 'isRecharge', title: '收支类型', sort: true, width: 150,templet:'<div>{{d.isRecharge=="recharge"?"收入":"支出"}}</div>'},
+                            {field: 'price', title: '金额', sort: true, width: 150,templet:'<div>{{d.price/100}}</div>'},
+                            {field: 'status', title: '状态', sort: true, width: 120,templet:'<div>{{d.status==0?"审核中":(d.status==1?"通过":"拒绝")}}</div>'},
                             {toolbar:'#barTeacher',title:'操作',width: 120}
 
                         ]]
@@ -269,15 +267,7 @@
 
 </script>
 <script type="text/html" id="barTeacher">
-    <a title="查看"  onclick="xadmin.open('查看科研成果文件','/essay/checkEssay?essayId={{d.id}}',800,600);" href="javascript:;">
-        <i class="layui-icon iconfont">&#xe6ac;</i>
-    </a>
-    <#--<a title="下载"  onclick="down({{d.id}});" href="javascript:;">-->
-        <#--<i class="layui-icon iconfont">&#xe714;</i>-->
-    <#--</a>-->
-    <#--<a title="移除" onclick="member_del(this,{{d.id}})" href="javascript:;">-->
-        <#--<i class="layui-icon">&#xe640;</i>-->
-    <#--</a>-->
+
     <a title="通过" onclick="pass({{d.id}})" href="javascript:;">
         <i class="layui-icon iconfont">&#xe6ad;</i>
     </a>

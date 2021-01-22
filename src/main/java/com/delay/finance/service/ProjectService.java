@@ -14,4 +14,10 @@ public interface ProjectService {
     List<Project> getAll();
 
     List<Project> getAllByStatus(int i);
+
+    Project findById(Integer projectId);
+
+    void saveOrUpdate(Project project);
+
+    void deleteById(Integer projectId);
 }

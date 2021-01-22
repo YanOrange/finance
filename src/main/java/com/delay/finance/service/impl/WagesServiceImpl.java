@@ -27,4 +27,9 @@ public class WagesServiceImpl implements WagesService {
     public List<Wages> findWagesByRemark(String remark) {
         return wagesRepository.findByRemark(remark);
     }
+
+    @Override
+    public void saveOrUpdate(Wages wages) {
+        wagesRepository.saveAndFlush(wages);
+    }
 }

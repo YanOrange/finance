@@ -49,4 +49,9 @@ public class UserServiceImpl implements UserService {
     public User findByAccountAndPassWord(String userName, String passWord) {
         return userRepository.findByAccountAndPassWord(userName,passWord);
     }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }

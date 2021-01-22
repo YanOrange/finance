@@ -32,4 +32,19 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getAllByStatus(int i) {
         return projectRepository.findAllByStatus(i);
     }
+
+    @Override
+    public Project findById(Integer projectId) {
+        return projectRepository.findById(projectId).orElse(null);
+    }
+
+    @Override
+    public void saveOrUpdate(Project project) {
+        projectRepository.saveAndFlush(project);
+    }
+
+    @Override
+    public void deleteById(Integer projectId) {
+        projectRepository.deleteById(projectId);
+    }
 }

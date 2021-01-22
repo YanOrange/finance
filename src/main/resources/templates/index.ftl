@@ -134,7 +134,7 @@
                                 <cite>报表管理</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('工资管理','/page/typeList')">
+                            <a onclick="xadmin.add_tab('工资管理','/page/wagesList')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>工资管理</cite></a>
                         </li>
@@ -160,7 +160,7 @@
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('部门管理','/page/typeList')">
+                            <a onclick="xadmin.add_tab('部门管理','/page/deptList')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>部门管理</cite></a>
                         </li>

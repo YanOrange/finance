@@ -4,10 +4,12 @@ import com.delay.finance.entity.Company;
 import com.delay.finance.entity.User;
 import com.delay.finance.repository.CompanyRepository;
 import com.delay.finance.service.UserService;
+import com.delay.finance.utils.ExecuteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 页面控制器
@@ -101,6 +103,24 @@ public class PageController extends BaseController{
     }
 
     /**
+     * 新增类别
+     * @return
+     */
+    @RequestMapping("addType")
+    public String addType(){
+        return "type/type-add";
+    }
+
+    /**
+     * 部门列表管理
+     * @return
+     */
+    @RequestMapping("deptList")
+    public String deptList(){
+        return "dept/dept-list";
+    }
+
+    /**
      * 报表管理
      * @return
      */
@@ -115,7 +135,7 @@ public class PageController extends BaseController{
      */
     @RequestMapping("wagesList")
     public String wagesList(){
-        return "project/wages-list";
+        return "wages/wages-list";
     }
 
     /**
@@ -128,21 +148,12 @@ public class PageController extends BaseController{
     }
 
     /**
-     * 待审核稿件
+     * 待审核
      * @return
      */
     @RequestMapping("masterEssayList")
     public String masterEssayList(){
         return "master/master-essay-list";
-    }
-
-    /**
-     * 获取全部管理员
-     * @return
-     */
-    @RequestMapping("toAdmin")
-    public String toAdmin(){
-        return "admin/admin-list";
     }
 
     /**
@@ -155,8 +166,23 @@ public class PageController extends BaseController{
         return "member/person-add";
     }
 
+    /**
+     * 新增部门
+     * @return
+     */
+    @RequestMapping("addDept")
+    public String addDept(){
+        return "dept/dept-add";
+    }
 
-
+    /**
+     * 项目添加
+     * @return
+     */
+    @RequestMapping("projectAdd")
+    public String projectAdd(){
+        return "project/project-add";
+    }
 
 
 }

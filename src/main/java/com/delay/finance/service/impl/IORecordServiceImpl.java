@@ -22,4 +22,9 @@ public class IORecordServiceImpl implements IORecordService {
     public List<IORecord> findAll() {
         return ioRecordRepository.findAll();
     }
+
+    @Override
+    public void saveOrUpdate(IORecord ioRecord) {
+        ioRecordRepository.saveAndFlush(ioRecord);
+    }
 }

@@ -23,20 +23,21 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
+            <input type="hidden" name="id" value="${dept.id}">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>项目类别名称
+                    <span class="x-red">*</span>部门绩效（工资系数）
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="name" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="">
+                    <input type="text" id="username" name="achievements" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="${dept.achievements!''}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
                 <button class="layui-btn" lay-filter="edit" lay-submit="">
-                    确认新增
+                    确认修改
                 </button>
             </div>
         </form>
@@ -60,13 +61,12 @@
                             var s = JSON.stringify(data.field);
                             console.log(s)
                             $.ajax({
-                                url: '/type/add',
+                                url: '/dept/editInfo',
                                 data: data.field,
-                                type: 'post',
                                 dataType: 'json',
                                 success: function (res) {
                                     if (res.success) {
-                                        layer.alert('类型新增成功', {
+                                        layer.alert('信息修改成功', {
                                                     icon: 6
                                                 },
                                                 function () {

@@ -1,8 +1,10 @@
 package com.delay.finance.controller;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.delay.finance.entity.Company;
 import com.delay.finance.entity.IORecord;
 import com.delay.finance.entity.Project;
+import com.delay.finance.repository.CompanyRepository;
 import com.delay.finance.service.IORecordService;
 import com.delay.finance.service.ProjectService;
 import com.delay.finance.utils.ExcelUtils;
@@ -32,6 +34,8 @@ public class ProjectController extends BaseController {
     ProjectService projectService;
     @Autowired
     IORecordService ioRecordService;
+    @Autowired
+    CompanyRepository companyRepository;
 
     @ResponseBody
     @RequestMapping("findProjectByUser")
@@ -78,5 +82,77 @@ public class ProjectController extends BaseController {
         ExcelUtils.exportExcel(list, "工资条报表", "工资条报表",IORecordExcel.class, fileName,true, response);
         System.out.println(fileName + "导出成功");
     }
+
+    /**
+     * 通过status获取业务明细
+     * @return
+     */
+    @RequestMapping("getProjectByStatus")
+    @ResponseBody
+    public ExecuteResult getProjectByStatus(Integer status){
+        List<Project> projectList = projectService.getAllByStatus(status);
+        return ExecuteResult.ok(projectList);
+    }
+
+    /**
+     * 通过/打回
+     * @return
+     */
+    @RequestMapping("setStatus")
+    @ResponseBody
+    public ExecuteResult setStatus(Integer projectId,Integer status){
+        Company company = companyRepository.findAll().get(0);
+        Project project = projectService.findById(projectId);
+        project.setStatus(status);
+        project.setAdmin(getUser());
+        projectService.saveOrUpdate(project);
+        if(status.equals(1)){
+            IORecord ioRecord = new IORecord();
+            ioRecord.setType(project.getType().getName());
+            ioRecord.setPrice(project.getPrice());
+            ioRecord.setUser(project.getAdmin());
+            ioRecord.setCompany(company);
+            ioRecord.setCreateTime(new Date());
+            ioRecordService.saveOrUpdate(ioRecord);
+        }
+
+
+        return ExecuteResult.ok();
+    }
+
+    /**
+     * 添加（申请）
+     * @return
+     */
+    @RequestMapping("add")
+    @ResponseBody
+    public ExecuteResult add(Project project){
+        Double dPrice = project.getDPrice();
+        if(project.getIsRecharge().equals("recharge")){//收入
+            dPrice = dPrice * 100;
+            project.setPrice(dPrice.longValue());
+        }else{
+            dPrice = dPrice * 100;
+            project.setPrice(-dPrice.longValue());
+        }
+        project.setStatus(0);
+        project.setCreateTime(new Date());
+        project.setUser(getUser());
+        projectService.saveOrUpdate(project);
+        return ExecuteResult.ok();
+    }
+
+    /**
+     * 删除
+     * @return
+     */
+    @RequestMapping("refuse")
+    @ResponseBody
+    public ExecuteResult refuse(Integer projectId){
+        projectService.deleteById(projectId);
+        return ExecuteResult.ok();
+    }
+
+
 
 }

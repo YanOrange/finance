@@ -17,4 +17,6 @@ public interface UserService {
     User findByAccount(String account);
 
     User findByAccountAndPassWord(String userName, String passWord);
+
+    List<User> findAll();
 }
