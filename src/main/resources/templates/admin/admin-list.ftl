@@ -63,8 +63,11 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/add?status=0',800,600)" href="javascript:;">
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增员工
+                    </button>
                     <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/add?status=3',800,600)" href="javascript:;">
-                        <i class="layui-icon iconfont">&#xe6b9;</i>新增管理员
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增财务
                     </button>
                 </div>
                 <div class="layui-card-body ">
@@ -129,96 +132,6 @@
         });
     }
 
-    /*用户-删除全部*/
-    function delAll(argument) {
-        var checkStatus = layui.table.checkStatus('checkboxTable').data;
-        var ids = [];
-        // 获取选中的id
-        $.each(checkStatus, function (index, el) {
-            ids.push(el.id)
-        });
-
-        layer.confirm('确认要删除吗？' + ids.toString(),
-                function () {
-                    //捉到所有被选中的，发异步进行删除
-                    $.ajax({
-                        url: '/essay/delete',
-                        data: JSON.stringify(ids),
-                        dataType: 'json',
-                        type: 'post',
-                        contentType: 'application/json',
-                        success: function (res) {
-                            if (res.success) {
-                                layer.msg('删除成功', {
-                                    icon: 1
-                                });
-                                $(".layui-form-checked").not('.header').parents('tr').remove();
-                                xadmin.father_reload();
-                            } else {
-                                layer.msg(res.msg, {
-                                    icon: 2
-                                });
-                            }
-                        }
-
-                    })
-
-                });
-    }
-
-    //通过
-    function pass(id) {
-        layer.confirm('确认通过嘛？', {
-            btn: ['确认', '取消'] //按钮
-        }, function () {
-            $.ajax({
-                url: '/essay/setState',
-                data: {
-                    essayId: id,
-                    state: 1
-                },
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success) {
-                        layer.msg('审核通过，稿件已发布', {icon: 1});
-                        xadmin.father_reload();
-                    } else {
-                        layer.msg(res.msg, {icon: 2});
-                    }
-
-                }
-            })
-
-        }, function () {
-
-        });
-    }
-
-    function refuse(id) {
-        //prompt层
-        layer.prompt({title: '打回意见', formType: 2}, function (text, index) {
-            $.ajax({
-                url: '/essay/refuse',
-                data: {
-                    essayId: id,
-                    remark: text
-                },
-                type: 'post',
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success) {
-                        layer.close(index);
-                        layer.msg('已打回<br>提交意见：' + text);
-                    } else {
-                        layer.close(index);
-                        layer.msglayer.msg(res.msg, {icon: 2});
-                    }
-                }
-            })
-
-        });
-    }
-
 </script>
 <script th:inline="none">
     /*数据查询*/
@@ -227,14 +140,14 @@
         getAllEssay();
     })
 
-    /*获取全部文章*/
+    /*获取全部*/
     function getAllEssay() {
         layui.use('table',
                 function () {
                     var table = layui.table;
                     table.render({
                         id: "checkboxTable",
-                        url: '/user/findAllByStatus?status=3',
+                        url: '/user/findAllByStatus?status=0',
                         elem: '#LAY_table_user',
                         page: true,
                         cols: [[
@@ -243,10 +156,15 @@
                             {field: 'name', title: '姓名', sort: true, width: 120},
                             {field: 'sex', width: 80, title: '性别', sort: true},
                             {field: 'age', width: 80, title: '年龄', sort: true},
+                            {field: 'post', width: 80, title: '职位', sort: true},
                             {field: 'phone', title: '联系方式', sort: true, width: 150},
                             {field: 'idCard', title: '身份证', sort: true, width: 150},
                             {field: 'address', title: '地址', sort: true, width: 150},
                             {field: 'email', title: '电子邮箱', sort: true, width: 120},
+                            {field: 'wages', title: '固定工资', sort: true, width: 120,templet:'<div>{{d.wages/100}}</div>'},
+                            {field: 'achieveWages', title: '绩效工资', sort: true, width: 120,templet:'<div>{{d.achieveWages/100}}</div>'},
+                            {field: 'achievements', title: '个人绩效', sort: true, width: 120,templet:'<div>{{d.achievements/100}}</div>'},
+                            {field: 'department', title: '部门', sort: true, width: 120,templet:'<div>{{d.department.name}}</div>'},
                             {toolbar: '#barTeacher', title: '操作', width: 120}
 
                         ]]

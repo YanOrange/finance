@@ -111,7 +111,7 @@
                     </ul>
                 </li>
 <#--            </#if>-->
-<#--            <#if user.status==3>-->
+            <#if user.status==3>
                 <li>
                     <a href="javascript:;">
                         <i class="iconfont left-nav-li" lay-tips="财务管理">&#xe6b8;</i>
@@ -166,7 +166,20 @@
                         </li>
                     </ul>
                 </li>
-<#--            </#if>-->
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="人员管理">&#xe6b8;</i>
+                    <cite>人员管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('人员管理','/page/adminList')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>部门管理</cite></a>
+                    </li>
+                </ul>
+            </li>
+            </#if>
 
         </ul>
     </div>

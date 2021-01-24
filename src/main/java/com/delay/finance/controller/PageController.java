@@ -185,4 +185,13 @@ public class PageController extends BaseController{
     }
 
 
+    /**
+     * 人员管理（普通员工）
+     * @return
+     */
+    @RequestMapping("adminList")
+    public String adminList(){
+        return "admin/admin-list";
+    }
+
 }
